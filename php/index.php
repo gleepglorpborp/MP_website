@@ -80,7 +80,7 @@
         While this technology can be entertaining, it can also be dangerous — spreading misinformation, damaging reputations, and threatening online trust.
     </p>
 
-    <h3>Why We Built This</h3>
+    <h3>Our mission</h3>
     <p>
         Our team developed a deepfake detection AI using the <strong>MesoNet framework</strong> — a lightweight neural network designed to analyze facial cues in images. 
         This project aims to help individuals and organizations verify whether a face image is authentic or AI-generated. 
@@ -96,11 +96,11 @@
     </div>
     
     <div class="cta">
-        <a href="signin.php">Sign In to Check an Image</a>
+        <a href="signin.php">Sign in to become a member</a>
     </div>
     
     <div class="cta">
-        <a href="login.php">Log in to Check an Image</a>
+        <a href="login.php">Log in to your account</a>
     </div>
 
     <footer>
