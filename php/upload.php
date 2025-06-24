@@ -58,7 +58,7 @@
 <body>
 
     <h1>Deepfake Detection</h1>
-    <p>Upload a face image to check if it is real or AI-generated using MesoNet.</p>
+    <p>Upload a face image to check if it is real or AI-generated our AI model.</p>
 
     <form class="upload-form" action="predict.php" method="POST" enctype="multipart/form-data">
         <input type="file" name="image" accept="image/*" required><br>
