@@ -1,3 +1,25 @@
+<?php
+// Server-side validation
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_FILES['image'])) {
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        $fileType = mime_content_type($_FILES['image']['tmp_name']);
+
+        if (!in_array($fileType, $allowedTypes)) {
+            die('Error: Only JPG, JPEG, and PNG files are allowed.');
+        }
+
+        // Here you can proceed to save the file or run prediction
+        // For example:
+        // move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/' . $_FILES['image']['name']);
+        echo "File is valid and ready for processing.";
+        exit; // Stop after validation message for demo
+    } else {
+        die('Error: No file uploaded.');
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,10 +80,10 @@
 <body>
 
     <h1>Deepfake Detection</h1>
-    <p>Upload a face image to check if it is real or AI-generated our AI model.</p>
+    <p>Upload a face image to check if it is real or AI-generated using our AI model.</p>
 
-    <form class="upload-form" action="predict.php" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required><br>
+    <form class="upload-form" action="" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept=".jpg, .jpeg, .png" required><br>
         <input type="submit" value="Check Now">
     </form>
 

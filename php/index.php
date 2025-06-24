@@ -92,6 +92,10 @@
     </p>
 
     <div class="cta">
+        <a href="upload.php">Try for free</a>
+    </div>
+    
+    <div class="cta">
         <a href="signin.php">Sign In to Check an Image</a>
     </div>
     
