@@ -2,68 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Deepfake Detection - MesoNet</title>
+    <title>Deepfake Detection</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: #0f172a;
-            color: #f1f5f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: #f1f5f9;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        .container {
+            max-width: 960px;
+            margin: auto;
+            padding: 3rem 2rem;
+        }
+
+        h1, h2, h3 {
             color: #38bdf8;
         }
 
-        p {
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .upload-form {
-            background: #1e293b;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        input[type="file"] {
+        h1 {
+            font-size: 3rem;
             margin-bottom: 1rem;
-            color: #f1f5f9;
         }
 
-        input[type="submit"] {
+        h2 {
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .cta {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .cta a {
+            display: inline-block;
+            padding: 0.8rem 1.6rem;
+            font-size: 1rem;
             background-color: #38bdf8;
             color: #0f172a;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 10px;
+            text-decoration: none;
             font-weight: 600;
+            transition: background-color 0.3s ease;
         }
 
-        input[type="submit"]:hover {
+        .cta a:hover {
             background-color: #0ea5e9;
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
 
-    <h1>Deepfake Detection</h1>
-    <p>Upload a face image to check if it is real or AI-generated using MesoNet.</p>
+<div class="container">
+    <h2 style="text-align: center;">Welcome to Deepfake Detection AI</h2>
 
-    <form class="upload-form" action="predict.php" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required><br>
-        <input type="submit" value="Check Now">
-    </form>
+
+    <h3>What are Deepfakes?</h3>
+    <p>
+        Deepfakes are synthetic media where a person’s face or voice is replaced with someone else’s using artificial intelligence. 
+        While this technology can be entertaining, it can also be dangerous — spreading misinformation, damaging reputations, and threatening online trust.
+    </p>
+
+    <h3>Why We Built This</h3>
+    <p>
+        Our team developed a deepfake detection AI using the <strong>MesoNet framework</strong> — a lightweight neural network designed to analyze facial cues in images. 
+        This project aims to help individuals and organizations verify whether a face image is authentic or AI-generated. 
+    </p>
+
+    <p>
+        Our model processes uploaded face images and returns whether the image is likely <strong>real</strong> or a <strong>deepfake</strong>, along with a confidence score. 
+        All uploads are private and used strictly for evaluation purposes.
+    </p>
+
+    <div class="cta">
+        <a href="signin.php">Sign In to Check an Image</a>
+    </div>
+    
+    <div class="cta">
+        <a href="login.php">Log in to Check an Image</a>
+    </div>
+
+    <footer>
+        &copy; <?php echo date("Y"); ?> Deepfake Detection AI. Built with MesoNet.
+    </footer>
+</div>
 
 </body>
 </html>
