@@ -1,4 +1,17 @@
 <?php
+
+$host = 'localhost';
+$dbname = 'mp'; // Updated for clarity
+$user = 'root';
+$pass = '';
+
+// Connect to the database
+$conn = new mysqli($host, $user, $pass, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
 // Server-side validation
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image'])) {
@@ -12,7 +25,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Here you can proceed to save the file or run prediction
         // For example:
         // move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/' . $_FILES['image']['name']);
-        echo "File is valid and ready for processing.";
+        
+        $dir = "../images/";
+        $image = basename($_FILES['image']['name']);
+        $path = $dir . $image;
+
+        move_uploaded_file($_FILES["image"]["tmp_name"], $path);
+
+        $sql = "INSERT INTO image (image) values (?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $path);
+
+        if ($stmt->execute()){
+            echo "<img src='$path' style='max-width:300px'><br>";
+            echo "File is valid and ready for processing.";
+        }else{
+            die('Error: No file uploaded.');
+        }
+
         exit; // Stop after validation message for demo
     } else {
         die('Error: No file uploaded.');
