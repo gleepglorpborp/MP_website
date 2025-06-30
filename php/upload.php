@@ -37,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("s", $path);
 
         if ($stmt->execute()){
+            $link = "detect.php/?path=" . $path;
+            header('Location:'. $link);
             echo "<img src='$path' style='max-width:300px'><br>";
             echo "File is valid and ready for processing.";
         }else{
