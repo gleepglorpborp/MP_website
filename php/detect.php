@@ -1,13 +1,13 @@
 <?php 
 $path = $_GET["path"];
 //echo $path;
-$input_path = "../images/A063887-R1-02-7A.JPG";
+$input_path = $path;
 $web_path = str_replace("../", "/MP_website/", $input_path);
 
-
-$img = "<img src='$web_path' style='max-width:100%; max-height:100%'><br>";
-//echo "File is valid and ready for processing.";
+$img ="<img src='$web_path' style='max-width:200px; max-height:200px'><br>";
+//secho "File is valid and ready for processing.";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +53,7 @@ $img = "<img src='$web_path' style='max-width:100%; max-height:100%'><br>";
 
         .cta {
             margin-top: 3rem;
-            text-align: center;
+            text-align: left;
         }
 
         .cta a {
@@ -74,7 +74,7 @@ $img = "<img src='$web_path' style='max-width:100%; max-height:100%'><br>";
 
         footer {
             margin-top: 4rem;
-            text-align: center;
+            text-align: left;
             font-size: 0.9rem;
             color: #94a3b8;
         }
@@ -85,6 +85,9 @@ $img = "<img src='$web_path' style='max-width:100%; max-height:100%'><br>";
 <div class="container">
     <?php echo $img ?>
     <p> file is valid and ready for processing </p>
+    <div class="cta">
+        <a href="upload.php">Upload another image</a>
+    </div>
 </div>
 
 </body>
