@@ -92,7 +92,7 @@
     </p>
 
     <div class="cta">
-        <a href="upload.php">Try for free</a>
+        <a href="upload.php">Try it for free!</a>
     </div>
     
     <div class="cta">
