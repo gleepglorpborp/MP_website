@@ -96,7 +96,7 @@
     </div>
     
     <div class="cta">
-        <a href="signin.php">Sign in to become a member</a>
+        <a href="signup.php">Sign in to become a member</a>
     </div>
     
     <div class="cta">
