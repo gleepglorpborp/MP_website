@@ -1,11 +1,14 @@
 <?php 
+if (!isset($_GET["path"])){
+    header('Location:/MP_website/php/index.php');
+}
 $path = $_GET["path"];
 //echo $path;
 $input_path = $path;
 $web_path = str_replace("../", "/MP_website/", $input_path);
 
 $img ="<img src='$web_path' style='max-width:200px; max-height:200px'><br>";
-//secho "File is valid and ready for processing.";
+//echo "File is valid and ready for processing.";
 ?>
 
 
@@ -84,9 +87,9 @@ $img ="<img src='$web_path' style='max-width:200px; max-height:200px'><br>";
 
 <div class="container">
     <?php echo $img ?>
-    <p> file is valid and ready for processing </p>
+    <p> file is valid and ready for processing</p>
     <div class="cta">
-        <a href="upload.php">Upload another image</a>
+        <a href="/MP_website/php/upload.php">Upload another image</a>
     </div>
 </div>
 
