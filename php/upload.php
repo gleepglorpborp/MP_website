@@ -11,6 +11,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+if (!isset($_COOKIE['user_id'])){
+    $user_id = bin2hex(random_bytes(16));
+    setcookie('user_id', $user_id, time() + (86400 * 365), "/"); // 1 year expiry
+}else{
+    $user_id = $_COOKIE['user_id'];
+}
+
 
 // Server-side validation
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,9 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         move_uploaded_file($_FILES["image"]["tmp_name"], $path);
 
-        $sql = "INSERT INTO image (image) values (?)";
+        $sql = "INSERT INTO image (image, user_id) values (?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $path);
+        $stmt->bind_param("ss", $path, $user_id);
 
         if ($stmt->execute()){
             $link = "detect.php/?path=" . $path;

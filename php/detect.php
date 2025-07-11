@@ -9,6 +9,7 @@ $web_path = str_replace("../", "/MP_website/", $input_path);
 
 $img ="<img src='$web_path' style='max-width:200px; max-height:200px'><br>";
 //echo "File is valid and ready for processing.";
+
 ?>
 
 
@@ -90,6 +91,10 @@ $img ="<img src='$web_path' style='max-width:200px; max-height:200px'><br>";
     <p> file is valid and ready for processing</p>
     <div class="cta">
         <a href="/MP_website/php/upload.php">Upload another image</a>
+    </div>
+
+    <div class="cta">
+        <a href="/MP_website/php/history.php">View history</a>
     </div>
 </div>
 
