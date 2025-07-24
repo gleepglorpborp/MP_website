@@ -1,44 +1,22 @@
 <?php
 $host = 'localhost';
-$dbname = 'mp'; // Updated for clarity
+$dbname = 'mp';
 $user = 'root';
 $pass = '';
 
-// Connect to the database
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 $user_id = $_COOKIE['user_id'] ?? null;
-
-if (!$user_id){
-    echo "no history available";
-}else{
-    $sql = "SELECT image, CREATED_TIME FROM image WHERE user_id = ? ORDER BY created_TIME DESC";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-}
-
-echo "<h2>Your Uploaded Images</h2>";
-while ($row = $result->fetch_assoc()) {
-    echo "<div><img src='{$row['image']}' style='max-width:200px'><br>Uploaded at: {$row['CREATED_TIME']}</div>";
-    echo "<div class='cta'>
-        <a href=''>delete</a>
-    </div>";
-    echo "<hr>";
-}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Deepfake Detection</title>
+    <title>Deepfake Detection - History</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -55,29 +33,51 @@ while ($row = $result->fetch_assoc()) {
             padding: 3rem 2rem;
         }
 
-        h1, h2, h3 {
-            color: #38bdf8;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
         h2 {
             font-size: 2rem;
-            margin-top: 2rem;
+            color: #38bdf8;
+            margin-bottom: 2rem;
         }
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
+        .image-box {
+            background-color: #1e293b;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        img {
+            max-width: 200px;
+            border-radius: 8px;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .timestamp {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .delete-btn {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc2626;
         }
 
         .cta {
-            margin-top: 3rem;
-            text-align: left;
+            margin-top: 2rem;
         }
 
         .cta a {
@@ -95,19 +95,55 @@ while ($row = $result->fetch_assoc()) {
         .cta a:hover {
             background-color: #0ea5e9;
         }
-
-        footer {
-            margin-top: 4rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
     </style>
+
+    <script>
+        function confirmAndRemove(button, image) {
+            const confirmed = confirm("Do you want to delete it?");
+            if (confirmed) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "is_deleted.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Remove the image box from DOM
+                        const imageBox = button.closest('.image-box');
+                        imageBox.remove();
+                    }
+                };
+                xhr.send("image=" + encodeURIComponent(image));
+            }
+        }
+    </script>
 </head>
 <body>
-        <div class="cta">
-        <a href="upload.php">back to upload</a>
-    </div>  
+    <div class="container">
+        <h2>Your Uploaded Images</h2>
 
+        <?php
+        if (!$user_id) {
+            echo "<p>No history available</p>";
+        } else {
+            $sql = "SELECT image, CREATED_TIME FROM image WHERE user_id = ? AND is_deleted = 0 ORDER BY CREATED_TIME DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+                $image = htmlspecialchars($row['image'], ENT_QUOTES, 'UTF-8');
+                echo "<div class='image-box'>
+                        <img src='$image' alt='Uploaded Image'>
+                        <div class='timestamp'>Uploaded at: {$row['CREATED_TIME']}</div>
+                        <button class='delete-btn' onclick='confirmAndRemove(this, \"$image\")'>Delete</button>
+                      </div>";
+            }
+        }
+        ?>
+
+        <div class="cta">
+            <a href="upload.php">Back to Upload</a>
+        </div>
+    </div>
 </body>
 </html>

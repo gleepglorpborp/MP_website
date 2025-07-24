@@ -88,7 +88,7 @@ $img ="<img src='$web_path' style='max-width:200px; max-height:200px'><br>";
 
 <div class="container">
     <?php echo $img ?>
-    <p> file is valid and ready for processing</p>
+    <p>File is valid and ready for processing</p>
     <div class="cta">
         <a href="/MP_website/php/upload.php">Upload another image</a>
     </div>

@@ -100,7 +100,7 @@
     </form>
 
     <div class="link">
-        Already have an account? <a href="signin.php">Sign in here</a>
+        Already have an account? <a href="login.php">Sign in here</a>
     </div>
 </div>
 
