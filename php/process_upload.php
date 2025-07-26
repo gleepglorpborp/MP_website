@@ -36,11 +36,30 @@ if (isset($_GET['delete']) && $_GET['delete'] == '1' && isset($_SESSION['temp_im
 
 // If user confirmed (Check Now clicked)
 if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
-    $imagePath = $_SESSION['temp_image_path'];
+
+    $imgbbApiKey = "ee1909605d2e6cf4634e526d35ffb930";
+
+    $imagefile = $_SESSION['temp_image_path'];
+
+    // Prepare file for direct upload
+    $cfile = curl_file_create($imagefile);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://api.imgbb.com/1/upload?key=' . $imgbbApiKey);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, ['image' => $cfile]); // send file directly
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $uploadResponse = curl_exec($ch);
+    curl_close($ch);
+
+    $uploadResult = json_decode($uploadResponse, true);
+
+    $url = $uploadResult['data']['url'];
+
     // Save the image info to DB
-    $sql = "INSERT INTO image (image, user_id) VALUES (?, ?)";
+    $sql = "INSERT INTO image (image, url, user_id) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $imagePath, $user_id);
+    $stmt->bind_param("sss", $imagePath, $url, $user_id);
 
     if ($stmt->execute()) {
         unset($_SESSION['temp_image_path']);
@@ -51,12 +70,15 @@ if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
     } else {
         $error = "Failed to save image info to database.";
     }
+        
 }
 
 // First upload POST with image file
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image']) && !isset($_POST['confirm_submit'])) {
     $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
     $fileType = mime_content_type($_FILES['image']['tmp_name']);
+
+    $imagefile = $_FILES['image']['tmp_name'];
 
     if (!in_array($fileType, $allowedTypes)) {
         $error = 'Only JPG, JPEG, and PNG files are allowed.';
