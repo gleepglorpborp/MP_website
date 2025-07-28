@@ -34,6 +34,7 @@ if (isset($_GET['delete']) && $_GET['delete'] == '1' && isset($_SESSION['temp_im
     exit;
 }
 
+
 // If user confirmed (Check Now clicked)
 if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
 
@@ -61,16 +62,38 @@ if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sss", $imagePath, $url, $user_id);
 
+
+    //SIGHTENGINE API
+
+    $sightengineuser = '590745066'; 
+    $sightenginesecret = 'YXDMFeNCQc2zWJSHev4pmEXUt2nZfQEC';
+
+    $sightengineurl = "https://api.sightengine.com/1.0/check.json?models=genai&api_user=$sightengineuser&api_secret=$sightenginesecret&url=" . urlencode($url);
+
+    $curl = curl_init($sightengineurl);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($curl);
+
+    // Check for CURL errors
+    if ($response === false) {  
+        echo "curl Error: " . curl_error($curl);
+        curl_close($curl);
+        exit;
+    }
+
+    // Decode and show response
+    $data = json_decode($response, true);
+
+    // Save to session after verifying response
+    $_SESSION['detection_result'] = $data;
+    $_SESSION['image_url'] = $url;
+
     if ($stmt->execute()) {
         unset($_SESSION['temp_image_path']);
         $stmt->close();
-        // Redirect to detection page or show success message
         header("Location: detect.php/?path=" . urlencode($imagePath));
         exit;
-    } else {
-        $error = "Failed to save image info to database.";
     }
-        
 }
 
 // First upload POST with image file
@@ -216,3 +239,7 @@ if (empty($imagePath) && isset($_SESSION['temp_image_path'])) {
 
 </body>
 </html>
+
+
+
+// have an option for sending a link and have an option for uploading?

@@ -16,6 +16,30 @@
             margin: 0;
         }
 
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .link a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
         .signup-box {
             background-color: #1e293b;
             padding: 2.5rem;
@@ -64,22 +88,11 @@
             background-color: #0ea5e9;
         }
 
-        .link {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-
-        .link a {
-            color: #38bdf8;
-            text-decoration: none;
-        }
-
-        .link a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
+
+<a href="index.php" class="back-arrow" title="Back to Home">&#8592; Back</a>
 
 <div class="signup-box">
     <h2>Create an Account</h2>

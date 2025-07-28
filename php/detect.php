@@ -1,18 +1,8 @@
-<?php 
-if (!isset($_GET["path"])){
-    header('Location:/MP_website/php/index.php');
-}
-$path = $_GET["path"];
-//echo $path;
-$input_path = $path;
-$web_path = str_replace("../", "/MP_website/", $input_path);
-
-$img ="<img src='$web_path' style='max-width:200px; max-height:200px'><br>";
-//echo "File is valid and ready for processing.";
-
+<?php
+session_start();
+$image_url = $_SESSION['image_url'] ?? '';
+$response = $_SESSION['detection_result'] ?? null;
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,15 +76,40 @@ $img ="<img src='$web_path' style='max-width:200px; max-height:200px'><br>";
 </head>
 <body>
 
-<div class="container">
-    <?php echo $img ?>
-    <p>File is valid and ready for processing</p>
-    <div class="cta">
-        <a href="/MP_website/php/upload.php">Upload another image</a>
-    </div>
 
+<div class="container">
+
+    <h2>Uploaded Image:</h2>
+    <?php if ($image_url): ?>
+        <img src="<?= htmlspecialchars($image_url) ?>" width="300"><br><br>
+    <?php endif; ?>
+
+    <h2> Detection Results: </h2>
+    <?php 
+        if ($response) {
+            $ai_generated_score = $response['type']['ai_generated'] ?? null;
+            if ($ai_generated_score !== null) {
+                    echo "<p><strong>AI-Generated (Deepfake) Score:</strong> " . ($ai_generated_score * 100) . "%</p>";
+                if ($ai_generated_score > 0.7) {
+                    echo "<p> This image is most likely a deepfake or ai-generated. </p>";
+                } else {
+                    echo "<p> This image is most likely real. </p>";
+                }
+            } else {
+                echo "<p> No AI-generated score found in response.</p>";
+            } 
+        } else {
+                echo "<p> No Response from the API.</p>";
+        }
+    ?>
     <div class="cta">
-        <a href="/MP_website/php/history.php">View history</a>
+        <a href="/MP/MP_WEBSITE/php/upload.php">Upload another image</a>
+    </div>
+    <div class="cta">
+        <a href="/MP/MP_WEBSITE/php/history.php">View history</a>
+    </div>
+    <div class="cta">
+        <a href="/MP/MP_WEBSITE/php/index.php">Home Page</a>
     </div>
 </div>
 

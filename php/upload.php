@@ -17,6 +17,31 @@
     margin: 0;
   }
 
+  .back-arrow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+  }
+
+  .link {
+      text-align: center;
+      margin-top: 1.5rem;
+  }
+
+  .link a {
+      color: #38bdf8;
+      text-decoration: none;
+  }
+
+  .link a:hover {
+      text-decoration: underline;
+  }
+
   h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -68,9 +93,14 @@
   input[type="submit"]:hover {
     background-color: #0ea5e9;
   }
+
+
+
 </style>
 </head>
 <body>
+
+<a href="index.php" class="back-arrow" title="Back to Home">&#8592; Back</a>
 
 <h1>Deepfake Detection</h1>
 <p>Upload a face image to check if it is real or AI-generated using our AI model.</p>
