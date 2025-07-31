@@ -98,6 +98,7 @@ $user_id = $_COOKIE['user_id'] ?? null;
         }
     </style>
 
+<!--
     <script>
         function confirmAndRemove(button, image) {
             const confirmed = confirm("Do you want to delete it?");
@@ -116,6 +117,7 @@ $user_id = $_COOKIE['user_id'] ?? null;
             }
         }
     </script>
+!-->
 
 </head>
 <body>
@@ -132,6 +134,10 @@ $user_id = $_COOKIE['user_id'] ?? null;
             $stmt->execute();
             $result = $stmt->get_result();
 
+            if ($result->num_rows < 1){
+                echo "no history available";
+            }
+
             while ($row = $result->fetch_assoc()) {
                 $image = htmlspecialchars($row['image'], ENT_QUOTES, 'UTF-8');
                 $id = $row['id'];
@@ -139,10 +145,9 @@ $user_id = $_COOKIE['user_id'] ?? null;
                 echo "<div class='image-box'>
                         <img src='$image' alt='Uploaded Image'>
                         <div class='timestamp'>Uploaded at: {$row['CREATED_TIME']}</div>
-                        <button class='delete-btn' onclick='confirmAndRemove(this, \"$image\")'>Delete</button>
                         <form method='POST' action='is_deleted.php' onsubmit=\"return confirm('test');\">
                         <input type = 'hidden' name = 'id' value = '" . htmlspecialchars($row['id']) . "'>
-                        <input type='submit' name='delete' value='Delete'>
+                        <input class = 'delete-btn' type='submit' name='delete' value='Delete'>
                         </form>
                       </div>";
             }

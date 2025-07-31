@@ -18,6 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
     if ($stmt->affected_rows > 0) {
         echo "success";
+        echo "<script>
+            window.location.href = 'history.php';
+        </script>";
     } else {
         echo "error";
     }
