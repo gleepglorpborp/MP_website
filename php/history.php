@@ -10,6 +10,7 @@ if ($conn->connect_error) {
 }
 
 $user_id = $_COOKIE['user_id'] ?? null;
+
 ?>
 
 <!DOCTYPE html>
@@ -115,16 +116,17 @@ $user_id = $_COOKIE['user_id'] ?? null;
             }
         }
     </script>
+
 </head>
 <body>
     <div class="container">
         <h2>Your Uploaded Images</h2>
-
+        
         <?php
-        if (!$user_id) {
-            echo "<p>No history available</p>";
+        if ($user_id == null) {
+            echo "no history available";
         } else {
-            $sql = "SELECT image, CREATED_TIME FROM image WHERE user_id = ? AND is_deleted = 0 ORDER BY CREATED_TIME DESC";
+            $sql = "SELECT id, image, CREATED_TIME FROM image WHERE user_id = ? AND is_deleted = 0 ORDER BY CREATED_TIME DESC";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $user_id);
             $stmt->execute();
@@ -132,10 +134,16 @@ $user_id = $_COOKIE['user_id'] ?? null;
 
             while ($row = $result->fetch_assoc()) {
                 $image = htmlspecialchars($row['image'], ENT_QUOTES, 'UTF-8');
+                $id = $row['id'];
+
                 echo "<div class='image-box'>
                         <img src='$image' alt='Uploaded Image'>
                         <div class='timestamp'>Uploaded at: {$row['CREATED_TIME']}</div>
                         <button class='delete-btn' onclick='confirmAndRemove(this, \"$image\")'>Delete</button>
+                        <form method='POST' action='is_deleted.php' onsubmit=\"return confirm('test');\">
+                        <input type = 'hidden' name = 'id' value = '" . htmlspecialchars($row['id']) . "'>
+                        <input type='submit' name='delete' value='Delete'>
+                        </form>
                       </div>";
             }
         }

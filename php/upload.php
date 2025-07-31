@@ -94,6 +94,28 @@
     background-color: #0ea5e9;
   }
 
+  .cta {
+      margin-top: 3rem;
+      text-align: left;
+  }
+
+  .cta a {
+      display: inline-block;
+      padding: 0.8rem 1.6rem;
+      font-size: 1rem;
+      background-color: #38bdf8;
+      color: #0f172a;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+  }
+
+  .cta a:hover {
+      background-color: #0ea5e9;
+  }
+  
+
 
 
 </style>
@@ -110,6 +132,10 @@
   <div id="file-name"></div>
   <input type="submit" value="Check Now" />
 </form>
+
+<div class="cta">
+        <a href="/mp_website/php/history.php">View history</a>
+    </div>
 
 <script>
   const fileInput = document.getElementById('imageInput');

@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Manage user_id cookie
-if (!isset($_COOKIE['user_id'])){
+if (!isset($_COOKIE['user_id']) or empty($_COOKIE['user_id'])){
     $user_id = bin2hex(random_bytes(16));
     setcookie('user_id', $user_id, time() + (86400 * 365), "/");
 } else {
@@ -60,7 +60,7 @@ if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
     // Save the image info to DB
     $sql = "INSERT INTO image (image, url, user_id) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $imagePath, $url, $user_id);
+    $stmt->bind_param("sss", $imagefile, $url, $user_id);
 
 
     //SIGHTENGINE API
