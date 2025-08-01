@@ -26,6 +26,10 @@
             font-weight: 600;
             transition: color 0.3s;
         }
+        .back-arrow:hover {
+            color: #0ea5e9;
+            text-decoration: underline;
+        }
 
         .link {
             text-align: center;

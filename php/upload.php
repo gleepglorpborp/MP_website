@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Deepfake Detection - MesoNet</title>
+<title>Deepfake Detection</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 <style>
   body {
@@ -27,18 +27,8 @@
       font-weight: 600;
       transition: color 0.3s;
   }
-
-  .link {
-      text-align: center;
-      margin-top: 1.5rem;
-  }
-
-  .link a {
-      color: #38bdf8;
-      text-decoration: none;
-  }
-
-  .link a:hover {
+  .back-arrow:hover {
+      color: #0ea5e9;
       text-decoration: underline;
   }
 
@@ -94,6 +84,51 @@
     background-color: #0ea5e9;
   }
 
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+  }
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.8rem;
+    cursor: pointer;
+    background-color: #0f172a;
+    border: 1px solid #1e293b;
+    border-bottom: none;
+    color: #94a3b8;
+    font-weight: 600;
+  }
+
+  .tab.active {
+    background-color: #1e293b;
+    color: #38bdf8;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  .form-section {
+    display: none;
+  }
+
+  .form-section.active {
+    display: block;
+  }
+
+  input[type="file"],
+  input[type="url"] {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    padding: 0.6rem;
+    background: #0f172a;
+    color: #f1f5f9;
+    border: 1px solid #475569;
+    border-radius: 8px;
+  }
+
 
 
 </style>
@@ -103,28 +138,54 @@
 <a href="index.php" class="back-arrow" title="Back to Home">&#8592; Back</a>
 
 <h1>Deepfake Detection</h1>
-<p>Upload a face image to check if it is real or AI-generated using our AI model.</p>
+<p>Upload an image file or provide an image URL to check if it's real or AI-generated using our detection model.</p>
 
-<form class="upload-form" id="uploadForm" action="process_upload.php" method="POST" enctype="multipart/form-data">
-  <input type="file" name="image" id="imageInput" accept=".jpg, .jpeg, .png" required><br>
-  <div id="file-name"></div>
-  <input type="submit" value="Check Now" />
-</form>
+
+<div class="upload-form">
+  <div class ="tabs">
+    <div class="tab active" id="tab-upload">Upload Image</div>
+    <div class="tab" id="tab-url">Image URL</div>
+  </div>
+
+  <form class="form-section active" id="uploadfile" action="process_file.php" method="POST" enctype="multipart/form-data">
+    <input type="file" name="image" id="imageInput" accept=".jpg, .jpeg, .png" required><br>
+    <div id="file-name"></div>
+    <input type="submit" value="Check Now" />
+  </form>
+
+  <form class="form-section" id ="uploadurl" action="process_url.php" method="POST">
+    <input type="url" name="image_url" id="imageurlinput" placeholder="Enter image URL..." required>
+    <input type="submit" value="Check Now" />
+  </form>
+</div>
 
 <script>
   const fileInput = document.getElementById('imageInput');
   const fileNameDiv = document.getElementById('file-name');
-  const form = document.getElementById('uploadForm');
+  const uploadfile = document.getElementById('uploadfile');
+  const uploadurl = document.getElementById('uploadurl');
+  const tabupload = document.getElementById('tab-upload');
+  const taburl = document.getElementById('tab-url');
 
+  tabupload.addEventListener('click', () => {
+    tabupload.classList.add('active');
+    taburl.classList.remove('active');
+    uploadfile.classList.add('active');
+    uploadurl.classList.remove('active');
+  });
+
+  taburl.addEventListener('click', () => {
+    taburl.classList.add('active');
+    tabupload.classList.remove('active');
+    uploadurl.classList.add('active');
+    uploadfile.classList.remove('active');
+  });
+  
   fileInput.addEventListener('change', () => {
     if (fileInput.files.length > 0) {
       const name = fileInput.files[0].name;
       fileNameDiv.textContent = "Selected file: " + name;
-
-      // Small delay so user sees file name before redirecting
-      setTimeout(() => {
-        form.submit();
-      }, 600);
+      
     } else {
       fileNameDiv.textContent = '';
     }

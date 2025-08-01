@@ -87,17 +87,21 @@ $response = $_SESSION['detection_result'] ?? null;
     <h2> Detection Results: </h2>
     <?php 
         if ($response) {
-            $ai_generated_score = $response['type']['ai_generated'] ?? null;
-            if ($ai_generated_score !== null) {
-                    echo "<p><strong>AI-Generated (Deepfake) Score:</strong> " . ($ai_generated_score * 100) . "%</p>";
-                if ($ai_generated_score > 0.7) {
-                    echo "<p> This image is most likely a deepfake or ai-generated. </p>";
-                } else {
-                    echo "<p> This image is most likely real. </p>";
-                }
+            $deepfake = $response['type']['deepfake'] ?? 0;
+            $genai = $response['type']['ai_generated'] ?? 0;
+
+            echo "<p>Ai-Generated score: " . round($genai * 100, 2) . "%<p>";
+            echo "<p>Deepfake score: " . round($deepfake * 100, 2) . "%<p>";
+
+            if ($deepfake > 0.7 && $deepfake > $genai) {
+                echo "<p>Conclusion: This image is most likely Deepfaked.</p>";
+            } elseif ($genai > 0.7 && $genai > $deepfake) {
+                echo "<p>Conclusion: This image is most likely ai-generated.</p>";
+            } elseif ($genai < 0.7 && $deepfake < 0.7) {
+                echo "<p>Conclusion: This image is likely not AI-generated or deepfaked.</p>";
             } else {
-                echo "<p> No AI-generated score found in response.</p>";
-            } 
+                echo "<p> Result is mixed.</p>";
+            }
         } else {
                 echo "<p> No Response from the API.</p>";
         }
