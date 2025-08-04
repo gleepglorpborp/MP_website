@@ -100,7 +100,7 @@ $response = $_SESSION['detection_result'] ?? null;
             } elseif ($genai < 0.7 && $deepfake < 0.7) {
                 echo "<p>Conclusion: This image is likely not AI-generated or deepfaked.</p>";
             } else {
-                echo "<p> Result is mixed.</p>";
+                echo "<p> Results cannot be determined.</p>";
             }
         } else {
                 echo "<p> No Response from the API.</p>";

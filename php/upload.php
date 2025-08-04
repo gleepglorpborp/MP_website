@@ -128,7 +128,16 @@
     border: 1px solid #475569;
     border-radius: 8px;
   }
-
+  .error-message {
+    color: #f87171;
+    background: #1e293b;
+    border: 1px solid #f87171;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-align: center;
+  }
 
 
 </style>
@@ -140,6 +149,11 @@
 <h1>Deepfake Detection</h1>
 <p>Upload an image file or provide an image URL to check if it's real or AI-generated using our detection model.</p>
 
+<?php if (isset($_GET['error'])): ?>
+  <div class="error-message">
+    <?= htmlspecialchars($_GET['error']) ?>
+  </div>
+<?php endif; ?>
 
 <div class="upload-form">
   <div class ="tabs">

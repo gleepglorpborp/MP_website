@@ -100,6 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image']) && !isset($
 
     if (!in_array($fileType, $allowedTypes)) {
         $error = 'Only JPG, JPEG, and PNG files are allowed.';
+        header("Location: upload.php?error=" . urlencode($error));
+        exit;
     } else {
         $dir = "../images/";
         if (!is_dir($dir)) {
