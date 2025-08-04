@@ -82,13 +82,13 @@
 
     <h3>Our mission</h3>
     <p>
-        Our team developed a deepfake detection AI using the <strong>MesoNet framework</strong> — a lightweight neural network designed to analyze facial cues in images. 
-        This project aims to help individuals and organizations verify whether a face image is authentic or AI-generated. 
+        Our team developed a deepfake detection platform powered by the <strong>Sightengine</strong> — a third-party AI service that analyzes images for signs of manipulation, including deepfakes. 
+    This API leverages machine learning models trained to detect digitally altered or AI-generated faces. 
     </p>
 
     <p>
-        Our model processes uploaded face images and returns whether the image is likely <strong>real</strong> or a <strong>deepfake</strong>, along with a confidence score. 
-        All uploads are private and used strictly for evaluation purposes.
+        Users can upload face images or provide image URLs to check whether an image is likely <strong>authentic</strong> or a <strong>deepfake</strong>, with a confidence score. 
+    All uploads are private and processed only for evaluation purposes.
     </p>
 
     <div class="cta">
