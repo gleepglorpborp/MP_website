@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Manage user_id cookie
-if (!isset($_COOKIE['user_id']) or empty($_COOKIE['user_id'])){
+if (!isset($_COOKIE['user_id'])){
     $user_id = bin2hex(random_bytes(16));
     setcookie('user_id', $user_id, time() + (86400 * 365), "/");
 } else {
@@ -34,93 +34,51 @@ if (isset($_GET['delete']) && $_GET['delete'] == '1' && isset($_SESSION['temp_im
     exit;
 }
 
-
-// If user confirmed (Check Now clicked)
+// If user confirms
 if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
+    $imageurl = $_SESSION['temp_image_path'];
 
-    $imgbbApiKey = "ee1909605d2e6cf4634e526d35ffb930";
-
-    $imagefile = $_SESSION['temp_image_path'];
-
-    // Prepare file for direct upload
-    $cfile = curl_file_create($imagefile);
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://api.imgbb.com/1/upload?key=' . $imgbbApiKey);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, ['image' => $cfile]); // send file directly
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $uploadResponse = curl_exec($ch);
-    curl_close($ch);
-
-    $uploadResult = json_decode($uploadResponse, true);
-
-    $url = $uploadResult['data']['url'];
-
-    // Save the image info to DB
-    $sql = "INSERT INTO image (image, url, user_id) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $imagefile, $url, $user_id);
-
-
-    //SIGHTENGINE API
-
+    // SIGHTENGINE CHECK
     $sightengineuser = '590745066'; 
     $sightenginesecret = 'YXDMFeNCQc2zWJSHev4pmEXUt2nZfQEC';
-
-    $sightengineurl = "https://api.sightengine.com/1.0/check.json?models=genai&api_user=$sightengineuser&api_secret=$sightenginesecret&url=" . urlencode($url);
+    $sightengineurl = "https://api.sightengine.com/1.0/check.json?models=deepfake,genai&api_user=$sightengineuser&api_secret=$sightenginesecret&url=" . urlencode($imageurl);
 
     $curl = curl_init($sightengineurl);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($curl);
+    curl_close($curl);
 
-    // Check for CURL errors
-    if ($response === false) {  
+    if ($response === false) {
         echo "curl Error: " . curl_error($curl);
-        curl_close($curl);
         exit;
     }
 
-    // Decode and show response
     $data = json_decode($response, true);
-
-    // Save to session after verifying response
     $_SESSION['detection_result'] = $data;
-    $_SESSION['image_url'] = $url;
+    $_SESSION['image_url'] = $imageurl;
 
-    if ($stmt->execute()) {
-        unset($_SESSION['temp_image_path']);
-        $stmt->close();
-        header("Location: detect.php/?path=" . urlencode($imagePath));
-        exit;
-    }
+    // Save the image info to DB
+    $sql = "INSERT INTO image (image, url, user_id) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $imagePath, $url, $user_id);
+
+    unset($_SESSION['temp_image_path']);
+    header("Location: detect.php/?url=" . urlencode($imageurl));
+    exit;
 }
 
+
 // First upload POST with image file
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image']) && !isset($_POST['confirm_submit'])) {
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-    $fileType = mime_content_type($_FILES['image']['tmp_name']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image_url']) && !isset($_POST['confirm_submit'])) {
+    $submittedurl = trim($_POST['image_url']);
 
-    $imagefile = $_FILES['image']['tmp_name'];
-
-    if (!in_array($fileType, $allowedTypes)) {
-        $error = 'Only JPG, JPEG, and PNG files are allowed.';
+    if (!filter_var($submittedurl, FILTER_VALIDATE_URL)) {
+        $error = 'Invalid URL submitted.';
+    //} elseif (!preg_match('/\.(jpg|jpeg|png|webp|gif)$/i', $submittedurl)) {
+    //    $error = 'Only image URLs ending in .jpg, .png, etc. are supported.';
     } else {
-        $dir = "../images/";
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-        // Save temporary uploaded image with unique name
-        $imageName = time() . '_' . basename($_FILES['image']['name']);
-        $path = $dir . $imageName;
-
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $path)) {
-            // Store temp image path in session for confirmation step
-            $_SESSION['temp_image_path'] = $path;
-            $imagePath = $path;
-        } else {
-            $error = 'Failed to upload file.';
-        }
+        $_SESSION['temp_image_path'] = $submittedurl;
+        $imageurl = $submittedurl;
     }
 }
 
@@ -206,7 +164,11 @@ if (empty($imagePath) && isset($_SESSION['temp_image_path'])) {
         margin-bottom: 1rem;
         font-weight: 600;
     }
-</style>
+    form{
+      display: flex;
+      gap: 1rem;
+    }
+    </style>
 </head>
 <body>
 
@@ -216,11 +178,13 @@ if (empty($imagePath) && isset($_SESSION['temp_image_path'])) {
     <div class="error"><?= htmlspecialchars($error) ?></div>
 <?php endif; ?>
 
-<div class="preview-container">
-    <img src="<?= htmlspecialchars($imagePath) ?>" alt="Uploaded Image Preview" />
-    <!-- Delete button triggers JS confirmation -->
-    <button type="button" class="remove-btn" id="deleteBtn" title="Delete Image">&times;</button>
-</div>
+<?php if (!empty($imageurl)): ?>
+    <div class="preview-container">
+        <img src="<?= htmlspecialchars($imageurl) ?>" alt="Uploaded Image Preview" />
+        <!-- Delete button triggers JS confirmation -->
+        <button type="button" class="remove-btn" id="deleteBtn" title="Delete Image">&times;</button>
+    </div>
+<?php endif; ?>
 
 <form method="POST" enctype="multipart/form-data">
     <input type="hidden" name="confirm_submit" value="1" />
@@ -231,15 +195,12 @@ if (empty($imagePath) && isset($_SESSION['temp_image_path'])) {
   document.getElementById('deleteBtn').addEventListener('click', () => {
     if (confirm("Do you want to delete this image?")) {
       // Redirect with ?delete=1 to trigger deletion server-side
-      window.location.href = 'process_upload.php?delete=1';
+      window.location.href = 'process_url.php?delete=1';
     }
     // else do nothing and stay on the page
   });
 </script>
-
 </body>
 </html>
 
 
-
-// have an option for sending a link and have an option for uploading?
