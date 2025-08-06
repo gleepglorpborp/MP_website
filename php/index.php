@@ -13,35 +13,55 @@
             color: #f1f5f9;
         }
 
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            background-color: #1e293b;
+            padding: 1rem 2rem;
+        }
+
+        nav a {
+            color: #38bdf8;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #0ea5e9;
+        }
+
         .container {
             max-width: 960px;
             margin: auto;
-            padding: 3rem 2rem;
-        }
-
-        h1, h2, h3 {
-            color: #38bdf8;
+            padding: 2rem;
+            text-align: center;
         }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #38bdf8;
         }
 
-        h2 {
-            font-size: 2rem;
-            margin-top: 2rem;
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
+        .images img {
+            width: 300px;
+            height: auto;
+            border-radius: 12px;
+            border: 3px solid #1e293b;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
-        .cta {
-            margin-top: 3rem;
-            text-align: center;
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .cta a {
@@ -70,43 +90,32 @@
 </head>
 <body>
 
+<nav>
+    <a href="mission.php">Mission</a>
+    <a href="vision.php">Vision</a>
+    <a href="contact.php">Contact Us</a>
+</nav>
+
 <div class="container">
-    <h2 style="text-align: center;">Welcome to Deepfake Detection AI</h2>
+    <h1>Is This Real or Fake?</h1>
 
-
-    <h3>What are Deepfakes?</h3>
-    <p>
-        Deepfakes are synthetic media where a person’s face or voice is replaced with someone else’s using artificial intelligence. 
-        While this technology can be entertaining, it can also be dangerous — spreading misinformation, damaging reputations, and threatening online trust.
-    </p>
-
-    <h3>Our mission</h3>
-    <p>
-        Our team developed a deepfake detection AI using the <strong>MesoNet framework</strong> — a lightweight neural network designed to analyze facial cues in images. 
-        This project aims to help individuals and organizations verify whether a face image is authentic or AI-generated. 
-    </p>
-
-    <p>
-        Our model processes uploaded face images and returns whether the image is likely <strong>real</strong> or a <strong>deepfake</strong>, along with a confidence score. 
-        All uploads are private and used strictly for evaluation purposes.
-    </p>
-
-    <div class="cta">
-        <a href="upload.php">Try it for free!</a>
-    </div>
-    
-    <div class="cta">
-        <a href="signup.php">Sign in to become a member</a>
-    </div>
-    
-    <div class="cta">
-        <a href="login.php">Log in to your account</a>
+    <div class="images">
+        <img src="../images/real.jpg" alt="Real Face">
+        <img src="../images/fake.jpg" alt="Fake Face">
     </div>
 
-    <footer>
-        &copy; <?php echo date("Y"); ?> Deepfake Detection AI. Built with MesoNet.
-    </footer>
+    <div class="question">
+        Can you tell the difference between a real and an AI-generated image?
+    </div>
+
+    <div class="cta">
+        <a href="upload.php">Upload an Image to Detect</a>
+    </div>
 </div>
+
+<footer>
+    &copy; <?php echo date("Y"); ?> Deepfake Detection AI. Built with MesoNet.
+</footer>
 
 </body>
 </html>
