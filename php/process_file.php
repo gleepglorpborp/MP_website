@@ -94,8 +94,16 @@ if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
 
 // First upload POST with image file
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image']) && !isset($_POST['confirm_submit'])) {
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+
+    if (isset($_SESSION['temp_image_path'])) {
+    unset($_SESSION['temp_image_path']);
+    }
+
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
     $fileType = mime_content_type($_FILES['image']['tmp_name']);
+    
+    //echo "Detected MIME type: " . $fileType; exit;
+
 
     $imagefile = $_FILES['image']['tmp_name'];
 

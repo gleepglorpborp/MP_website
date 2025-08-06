@@ -61,6 +61,7 @@ if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
     $sql = "INSERT INTO image (image, url, user_id) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sss", $imagePath, $url, $user_id);
+    //$stmt->execute();
 
     unset($_SESSION['temp_image_path']);
     header("Location: detect.php/?url=" . urlencode($imageurl));
@@ -73,14 +74,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image_url']) && !isse
     $submittedurl = trim($_POST['image_url']);
 
     if (!filter_var($submittedurl, FILTER_VALIDATE_URL)) {
-        $error = 'Invalid URL submitted.';
-    //} elseif (!preg_match('/\.(jpg|jpeg|png|webp|gif)$/i', $submittedurl)) {
-    //    $error = 'Only image URLs ending in .jpg, .png, etc. are supported.';
-    } else {
+        $_SESSION['error'] = 'Invalid URL submitted.';
+        header("Location: upload.php");
+        exit;
+    }
+
+    $headers = @get_headers($submittedurl, 1);
+
+    if ($headers === false || strpos($headers[0], '200') === false) {
+        $_SESSION['error'] = 'URL is not reachable.';
+        header("Location: upload.php");
+        exit;
+    }
+
+    // Normalize header keys to lowercase
+    $normalizedHeaders = array_change_key_case($headers, CASE_LOWER);
+    $contentType = $normalizedHeaders['content-type'] ?? '';
+
+    if (is_array($contentType)) {
+        $contentType = $contentType[0];
+    }
+
+    if (stripos($contentType, 'image/') === 0) {
         $_SESSION['temp_image_path'] = $submittedurl;
         $imageurl = $submittedurl;
+        //header("Location: detect.php");
+        //exit;
+    } else {
+        $_SESSION['error'] = 'The URL does not point to an image. (' . $contentType . ')';
+        header("Location: upload.php");
+        exit;
     }
+
+
 }
+
 
 // If no temp image in session (direct access or after delete), redirect to upload.php
 if (empty($imagePath) && !isset($_SESSION['temp_image_path'])) {

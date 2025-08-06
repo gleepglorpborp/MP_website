@@ -170,11 +170,20 @@
 <h1>Deepfake Detection</h1>
 <p>Upload an image file or provide an image URL to check if it's real or AI-generated using our detection model.</p>
 
-<?php if (isset($_GET['error'])): ?>
+<?php if (isset($_SESSION['error'])): ?>
   <div class="error-message">
-    <?= htmlspecialchars($_GET['error']) ?>
+    <?= htmlspecialchars($_SESSION['error']) ?>
   </div>
+  
 <?php endif; ?>
+
+<?php
+session_start();
+if (isset($_SESSION['error'])) {
+    echo '<p style="color:red;">' . $_SESSION['error'] . '</p>';
+    unset($_SESSION['error']); // clear it after displaying
+}
+?>
 
 <div class="upload-form">
   <div class ="tabs">
@@ -183,7 +192,7 @@
   </div>
 
   <form class="form-section active" id="uploadfile" action="process_file.php" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" id="imageInput" accept=".jpg, .jpeg, .png" required><br>
+    <input type="file" name="image" id="imageInput" accept=".jpg, .jpeg, .png, .webp" required><br>
     <div id="file-name"></div>
     <input type="submit" value="Check Now" />
   </form>
