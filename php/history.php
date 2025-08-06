@@ -128,7 +128,7 @@ $user_id = $_COOKIE['user_id'] ?? null;
         if ($user_id == null) {
             echo "No history available";
         } else {
-            $sql = "SELECT id, image, CREATED_TIME FROM image WHERE user_id = ? AND is_deleted = 0 ORDER BY CREATED_TIME DESC";
+            $sql = "SELECT id, image, CREATED_TIME, deepfake, genai, conclusion FROM image WHERE user_id = ? AND is_deleted = 0 ORDER BY CREATED_TIME DESC";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $user_id);
             $stmt->execute();
@@ -141,10 +141,17 @@ $user_id = $_COOKIE['user_id'] ?? null;
             while ($row = $result->fetch_assoc()) {
                 $image = htmlspecialchars($row['image'], ENT_QUOTES, 'UTF-8');
                 $id = $row['id'];
+                $deepfake = $row['deepfake'];
+                $genai = $row['genai'];
+                $conc = $row['conclusion'];
 
                 echo "<div class='image-box'>
                         <img src='$image' alt='Uploaded Image'>
+                        <p> Ai-generated score: $genai% </p>
+                        <p> Deepfake score: $deepfake% </p>
+                        <p> $conc </p>
                         <div class='timestamp'>Uploaded at: {$row['CREATED_TIME']}</div>
+                        <br>
                         <form method='POST' action='is_deleted.php' onsubmit=\"return confirm('Confirm Delete?');\">
                         <input type = 'hidden' name = 'id' value = '" . htmlspecialchars($row['id']) . "'>
                         <input class = 'delete-btn' type='submit' name='delete' value='Delete'>

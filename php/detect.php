@@ -1,5 +1,18 @@
 <?php
 session_start();
+
+
+$host = 'localhost';
+$dbname = 'mp';
+$user = 'root';
+$pass = '';
+
+// Connect to DB
+$conn = new mysqli($host, $user, $pass, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 $image_url = $_SESSION['image_url'] ?? '';
 $response = $_SESSION['detection_result'] ?? null;
 ?>
@@ -90,30 +103,46 @@ $response = $_SESSION['detection_result'] ?? null;
             $deepfake = $response['type']['deepfake'] ?? 0;
             $genai = $response['type']['ai_generated'] ?? 0;
 
+            $deepfakeround = round($deepfake * 100, 2);
+            $genairound = round($genai * 100, 2);
+
             echo "<p>Ai-Generated score: " . round($genai * 100, 2) . "%<p>";
             echo "<p>Deepfake score: " . round($deepfake * 100, 2) . "%<p>";
+            echo $image_url;
 
             if ($deepfake > 0.7 && $deepfake > $genai) {
-                echo "<p>Conclusion: This image is most likely Deepfaked.</p>";
+                $conclusion = "<p>Conclusion: This image is most likely Deepfaked.</p>";
             } elseif ($genai > 0.7 && $genai > $deepfake) {
-                echo "<p>Conclusion: This image is most likely ai-generated.</p>";
+                $conclusion = "<p>Conclusion: This image is most likely ai-generated.</p>";
             } elseif ($genai < 0.7 && $deepfake < 0.7) {
-                echo "<p>Conclusion: This image is likely not AI-generated or deepfaked.</p>";
+                $conclusion = "<p>Conclusion: This image is likely not AI-generated or deepfaked.</p>";
             } else {
-                echo "<p> Results cannot be determined.</p>";
+                $conclusion = "<p> Results cannot be determined.</p>";
             }
+
+            echo $conclusion;
+
+            if (isset($_SESSION['id'])){
+                $id = $_SESSION['id'];
+                $sql = "UPDATE image set deepfake = ?, genai = ?, conclusion = ? where id = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ddsi", $deepfakeround, $genairound, $conclusion, $id);
+                $stmt->execute();
+            }
+            
+            
         } else {
                 echo "<p> No Response from the API.</p>";
         }
     ?>
     <div class="cta">
-        <a href="/MP/MP_WEBSITE/php/upload.php">Upload another image</a>
+        <a href="/mp_website/php/upload.php">Upload another image</a>
     </div>
     <div class="cta">
-        <a href="/MP/MP_WEBSITE/php/history.php">View history</a>
+        <a href="/mp_website/php/history.php">View history</a>
     </div>
     <div class="cta">
-        <a href="/MP/MP_WEBSITE/php/index.php">Home Page</a>
+        <a href="/mp_website/php/index.php">Home Page</a>
     </div>
 </div>
 

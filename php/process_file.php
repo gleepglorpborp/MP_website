@@ -75,7 +75,7 @@ if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
     $_SESSION['detection_result'] = $data;
     
     // Convert local path to public URL
-    $publicPath = str_replace('..', '/MP/MP_WEBSITE', $imagePath);
+    $publicPath = str_replace('..', '/mp_website', $imagePath);
     $_SESSION['image_url'] = $publicPath;
 
 
@@ -84,6 +84,7 @@ if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
     $stmt->bind_param("ss", $imagePath, $user_id);
 
     if ($stmt->execute()) {
+        $_SESSION['id'] = $stmt->insert_id;
         unset($_SESSION['temp_image_path']);
         $stmt->close();
         header("Location: detect.php/?path=" . urlencode($imagePath));
