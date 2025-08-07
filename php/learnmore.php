@@ -105,7 +105,7 @@
 <div class="container">
     <h1>Learn More</h1>
 
-    <h2>How to Spot a Deepfake</h2>
+    <h2>How Deepfakes Are Made</h2>
     <p>
         Deepfakes use machine learning algorithms (like GANs – Generative Adversarial Networks) to map one person's face onto another’s 
         body. The AI is trained on large datasets of the target person's images and videos to generate realistic simulations.
@@ -126,6 +126,7 @@
         <li> Suspicious distribution </li>
     </ul>
 
+    <!--
     <h2>Why This Matters</h2>
     <p>
         As shown below. The target groups were as follows: politicians and the general public were each targeted 40% of the time, and celebrities were targeted 20% of the time.
@@ -140,6 +141,7 @@
         The people we love are bound to the influence of controversial people that we know, hence identifying and learning to contextualise information
         is key to shaping our future.
     </p>
+        -->
     <!-- <ul> 
         <li><strong>Women</strong>: Often targeted in non-consensual deepfake pornography, leading to reputational and psychological harm.</li>
         <li><strong>Politicians & Public Figures</strong>: Used to manipulate speeches, incite conflict, or spread propaganda.</li>
