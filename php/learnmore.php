@@ -96,6 +96,7 @@
 
 <nav>
     <a href="index.php">Home</a>
+    <a href="guess.php">Play Game</a>
     <a href="mission.php">Mission</a>
     <a href="vision.php">Vision</a>
     <a href="learnmore.php">Learn More</a>
@@ -119,11 +120,11 @@
     </p>
     <ul>
         <li> Unnatural or robotic facial movements</li>
-        <li> Inconsistent skin tones or color mismatches</li>
+        <li> Inconsistent skin tones or colour mismatches</li>
         <li> Lighting inconsistencies across the face and background</li>
-        <li> Poor lip-syncing </li>
+        <li> Poor lip-syncing</li>
         <li> Blurry or distorted backgrounds and face edges</li>
-        <li> Suspicious distribution </li>
+        <li> Suspicious distribution</li>
     </ul>
 
     <!--

@@ -10,13 +10,30 @@ $response = $_SESSION['detection_result'] ?? null;
     <title>Deepfake Detection</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #0f172a;
             color: #f1f5f9;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            background-color: #1e293b;
+            padding: 1rem 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #0ea5e9;
         }
 
         .container {
@@ -76,8 +93,16 @@ $response = $_SESSION['detection_result'] ?? null;
 </head>
 <body>
 
-<div class="container">
+<nav>
+    <a href="index.php">Home</a>
+    <a href="guess.php">Play Game</a>
+    <a href="mission.php">Mission</a>
+    <a href="vision.php">Vision</a>
+    <a href="learnmore.php">Learn More</a>
+    <a href="contact.php">Contact Us</a>
+</nav>
 
+<div class="container">
     <h2>Uploaded Image:</h2>
     <?php if ($image_url): ?>
         <img src="<?= htmlspecialchars($image_url) ?>" width="300"><br><br>
@@ -88,7 +113,7 @@ $response = $_SESSION['detection_result'] ?? null;
         if ($response) {
             $ai_generated_score = $response['type']['ai_generated'] ?? null;
             if ($ai_generated_score !== null) {
-                    echo "<p><strong>AI-Generated (Deepfake) Score:</strong> " . ($ai_generated_score * 100) . "%</p>";
+                echo "<p><strong>AI-Generated (Deepfake) Score:</strong> " . ($ai_generated_score * 100) . "%</p>";
                 if ($ai_generated_score > 0.7) {
                     echo "<p> This image is most likely a deepfake or ai-generated. </p>";
                 } else {
@@ -98,7 +123,7 @@ $response = $_SESSION['detection_result'] ?? null;
                 echo "<p> No AI-generated score found in response.</p>";
             } 
         } else {
-                echo "<p> No Response from the API.</p>";
+            echo "<p> No Response from the API.</p>";
         }
     ?>
     <div class="cta">

@@ -28,6 +28,24 @@
       transition: color 0.3s;
   }
 
+  nav {
+      display: flex;
+      justify-content: flex-start;
+      background-color: #1e293b;
+      padding: 1rem 2rem;
+  }
+
+  nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 600;
+  }
+
+  nav a:hover {
+      color: #0ea5e9;
+  }
+
   .link {
       text-align: center;
       margin-top: 1.5rem;
@@ -116,10 +134,16 @@
   }
   
 
-
-
 </style>
 </head>
+<nav>
+    <a href="index.php">Home</a>
+    <a href="guess.php">Play Game</a>
+    <a href="mission.php">Mission</a>
+    <a href="vision.php">Vision</a>
+    <a href="learnmore.php">Learn More</a>
+    <a href="contact.php">Contact Us</a>
+</nav>
 <body>
 
 <a href="index.php" class="back-arrow" title="Back to Home">&#8592; Back</a>
