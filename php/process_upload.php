@@ -62,6 +62,8 @@ if (isset($_POST['confirm_submit']) && isset($_SESSION['temp_image_path'])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sss", $imagefile, $url, $user_id);
 
+    
+
 
     //SIGHTENGINE API
 
