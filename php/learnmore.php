@@ -106,12 +106,25 @@
 <div class="container">
     <h1>Learn More</h1>
 
+    <h2>Why Deepfakes Are a Threat</h2>
+    
+    <div class="images">
+    <img src="../images/info.png" alt="News Source Icon">
+    <h6>From The Straits Times (Gabrielle Chan, Nov 13, 2024)</h6>
+</div>
+
+<p>
+    In a recent article by <em>The Straits Times</em>, it was reported that Singapore police are investigating deepfake nude photos 
+    involving students from the Singapore Sports School. The principal confirmed awareness of the incident and emphasized that such harmful behavior is not tolerated.
+    This highlights the growing threat of deepfake technology to individual identity and reputation—especially among youth. As AI tools become more accessible, the risk 
+    of identity manipulation increases, putting our children's safety and dignity at stake.
+</p>
+
     <h2>How Deepfakes Are Made</h2>
     <p>
         Deepfakes use machine learning algorithms (like GANs – Generative Adversarial Networks) to map one person's face onto another’s 
         body. The AI is trained on large datasets of the target person's images and videos to generate realistic simulations.
     </p>
-
 
     <h2>How to Spot a Deepfake</h2>
     <p>
@@ -125,6 +138,7 @@
         <li> Poor lip-syncing</li>
         <li> Blurry or distorted backgrounds and face edges</li>
         <li> Suspicious distribution</li>
+        <li> Hyper-realistic photos</li>
     </ul>
 
     <!--

@@ -131,6 +131,7 @@
     </p>
      <div class="images">
         <img src="../images/demographic.png" alt="Statistics">
+        <h6>From Surfshark</h6>
      </div>   
     <p>
         Deepfakes don’t just threaten truth — they target specific groups in harmful ways by targeting famous and infamous figures 
