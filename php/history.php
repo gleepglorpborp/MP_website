@@ -123,6 +123,7 @@ $user_id = $_COOKIE['user_id'] ?? null;
 <body>
     <div class="container">
         <h2>Your Uploaded Images</h2>
+        <p>Images uploaded from URL will not be saved in history</p>
         
         <?php
         if ($user_id == null) {

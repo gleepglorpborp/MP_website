@@ -202,6 +202,8 @@ if (empty($imagePath) && isset($_SESSION['temp_image_path'])) {
 
 <h1>Confirm Your Upload</h1>
 
+<p>Images uploaded with URL will not be saved to history</p>
+
 <?php if ($error): ?>
     <div class="error"><?= htmlspecialchars($error) ?></div>
 <?php endif; ?>
