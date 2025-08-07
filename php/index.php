@@ -94,7 +94,9 @@
     <a href="guess.php">Play Game</a>
     <a href="mission.php">Mission</a>
     <a href="vision.php">Vision</a>
+    <a href="learnmore.php">Learn More</a>
     <a href="contact.php">Contact Us</a>
+    
 </nav>
 
 <div class="container">

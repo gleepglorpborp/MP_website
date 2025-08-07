@@ -65,9 +65,10 @@
 <body>
 
 <nav>
-    <a href="index2.php">Home</a>
-    <a href="vision.php">Vision</a>
+    <a href="index.php">Home</a>
     <a href="mission.php">Mission</a>
+    <a href="vision.php">Vision</a>
+    <a href="learnmore.php">Learn More</a>
     <a href="contact.php">Contact Us</a>
 </nav>
 
