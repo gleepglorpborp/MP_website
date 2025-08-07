@@ -15,13 +15,13 @@
 
         nav {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             background-color: #1e293b;
             padding: 1rem 2rem;
         }
 
         nav a {
-            color: #38bdf8;
+            color: #ffffff;
             text-decoration: none;
             margin-left: 1.5rem;
             font-weight: 600;
@@ -75,7 +75,7 @@
 <body>
 
 <nav>
-    <a href="index2.php">Home</a>
+    <a href="index.php">Home</a>
     <a href="mission.php">Mission</a>
     <a href="vision.php">Vision</a>
     <a href="contact.php">Contact Us</a>
@@ -85,7 +85,7 @@
     <h1>Contact Us</h1>
 
     <div class="info-box">
-        <p><span class="label">Admin Name:</span> John Doe</p>
+        <p><span class="label">Admin Name:</span> Dylon Lau</p>
         <p><span class="label">Email:</span> admin@deepfakedetect.com</p>
         <p><span class="label">Phone:</span> +65 9123 4567</p>
         <p><span class="label">Office Hours:</span> Mon–Fri, 9:00 AM – 5:00 PM</p>

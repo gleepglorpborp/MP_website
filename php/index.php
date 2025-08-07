@@ -15,13 +15,13 @@
 
         nav {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             background-color: #1e293b;
             padding: 1rem 2rem;
         }
 
         nav a {
-            color: #38bdf8;
+            color: #ffffff;
             text-decoration: none;
             margin-left: 1.5rem;
             font-weight: 600;
@@ -91,13 +91,14 @@
 <body>
 
 <nav>
+    <a href="guess.php">Play Game</a>
     <a href="mission.php">Mission</a>
     <a href="vision.php">Vision</a>
     <a href="contact.php">Contact Us</a>
 </nav>
 
 <div class="container">
-    <h1>Is This Real or Fake?</h1>
+    <h1>Can you tell the difference between a real and an AI-generated image?</h1>
 
     <div class="images">
         <img src="../images/real.jpg" alt="Real Face">
@@ -105,8 +106,13 @@
     </div>
 
     <div class="question">
-        Can you tell the difference between a real and an AI-generated image?
+        Real or Fake?
     </div>
+
+    <div class="question">
+        Test and try it out!
+    </div>
+
 
     <div class="cta">
         <a href="upload.php">Upload an Image to Detect</a>

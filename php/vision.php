@@ -15,13 +15,13 @@
 
         nav {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             background-color: #1e293b;
             padding: 1rem 2rem;
         }
 
         nav a {
-            color: #38bdf8;
+            color: #ffffff;
             text-decoration: none;
             margin-left: 1.5rem;
             font-weight: 600;
@@ -115,12 +115,12 @@
         While deepfakes are improving, there are still telltale signs you can look out for:
     </p>
     <ul>
-        <li>🧍 Unnatural or robotic facial movements</li>
-        <li>🎨 Inconsistent skin tones or color mismatches</li>
-        <li>💡 Lighting inconsistencies across the face and background</li>
-        <li>👄 Poor lip-syncing (audio not matching lip movement)</li>
-        <li>🌫️ Blurry or distorted backgrounds and face edges</li>
-        <li>🤖 Suspicious distribution (shared by unknown bots or sources)</li>
+        <li> Unnatural or robotic facial movements</li>
+        <li> Inconsistent skin tones or color mismatches</li>
+        <li> Lighting inconsistencies across the face and background</li>
+        <li> Poor lip-syncing </li>
+        <li> Blurry or distorted backgrounds and face edges</li>
+        <li> Suspicious distribution </li>
     </ul>
 
     <h2>Why This Matters</h2>

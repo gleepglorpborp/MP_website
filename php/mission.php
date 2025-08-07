@@ -15,13 +15,13 @@
 
         nav {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             background-color: #1e293b;
             padding: 1rem 2rem;
         }
 
         nav a {
-            color: #38bdf8;
+            color: #ffffff;
             text-decoration: none;
             margin-left: 1.5rem;
             font-weight: 600;
