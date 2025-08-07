@@ -6,16 +6,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 <style>
   body {
-    font-family: 'Inter', sans-serif;
-    background: #0f172a;
-    color: #f1f5f9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-  }
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: #f1f5f9;
+  margin: 0;
+}
+
 
   .back-arrow {
       position: absolute;
@@ -132,10 +128,24 @@
   .cta a:hover {
       background-color: #0ea5e9;
   }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px); /* adjust based on nav height */
+  }
+
   
 
 </style>
 </head>
+
+<body>
+<!--
+<a href="index.php" class="back-arrow" title="Back to Home">&#8592; Back</a>
+-->
 <nav>
     <a href="index.php">Home</a>
     <a href="guess.php">Play Game</a>
@@ -144,10 +154,7 @@
     <a href="learnmore.php">Learn More</a>
     <a href="contact.php">Contact Us</a>
 </nav>
-<body>
-
-<a href="index.php" class="back-arrow" title="Back to Home">&#8592; Back</a>
-
+<div class='main-content'>
 <h1>Deepfake Detection</h1>
 <p>Upload a face image to check if it is real or AI-generated using our AI model.</p>
 
@@ -180,6 +187,6 @@
     }
   });
 </script>
-
+</div>
 </body>
 </html>
