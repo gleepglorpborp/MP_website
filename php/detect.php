@@ -108,7 +108,6 @@ $response = $_SESSION['detection_result'] ?? null;
 
             echo "<p>Ai-Generated score: " . round($genai * 100, 2) . "%<p>";
             echo "<p>Deepfake score: " . round($deepfake * 100, 2) . "%<p>";
-            echo $image_url;
 
             if ($deepfake > 0.7 && $deepfake > $genai) {
                 $conclusion = "<p>Conclusion: This image is most likely Deepfaked.</p>";
