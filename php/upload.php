@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,17 +10,15 @@
 <title>Deepfake Detection</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 <style>
+
+
   body {
-    font-family: 'Inter', sans-serif;
-    background: #0f172a;
-    color: #f1f5f9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: #f1f5f9;
+  margin: 0;
   }
+
 
   .back-arrow {
       position: absolute;
@@ -27,8 +30,36 @@
       font-weight: 600;
       transition: color 0.3s;
   }
-  .back-arrow:hover {
+
+  nav {
+      display: flex;
+      justify-content: flex-start;
+      background-color: #1e293b;
+      padding: 1rem 2rem;
+  }
+
+  nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 600;
+  }
+
+  nav a:hover {
       color: #0ea5e9;
+  }
+
+  .link {
+      text-align: center;
+      margin-top: 1.5rem;
+  }
+
+  .link a {
+      color: #38bdf8;
+      text-decoration: none;
+  }
+
+  .link a:hover {
       text-decoration: underline;
   }
 
@@ -104,7 +135,7 @@
   .cta a:hover {
       background-color: #0ea5e9;
   }
-  
+
   .tabs {
     display: flex;
     justify-content: space-around;
@@ -131,7 +162,7 @@
     border-bottom: 1px solid #1e293b;
   }
 
-  .form-section {
+   .form-section {
     display: none;
   }
 
@@ -161,12 +192,33 @@
   }
 
 
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px); /* adjust based on nav height */
+  }
+
+
 </style>
 </head>
 <body>
 
-<a href="index.php" class="back-arrow" title="Back to Home">&#8592; Back</a>
+<nav>
+    <a href="index.php">Home</a>
+    <a href="guess.php">Play Game</a>
+    <a href="mission.php">Mission</a>
+    <a href="vision.php">Vision</a>
+    <a href="learnmore.php">Learn More</a>
+    <a href="contact.php">Contact Us</a>
+</nav>
 
+<!--
+<a href="index.php" class="back-arrow" title="Back to Home">&#8592; Back</a>
+-->
+
+<div class='main-content'>
 <h1>Deepfake Detection</h1>
 <p>Upload an image file or provide an image URL to check if it's real or AI-generated using our detection model.</p>
 
@@ -178,7 +230,7 @@
 <?php endif; ?>
 
 <?php
-session_start();
+//session_start();
 if (isset($_SESSION['error'])) {
     echo '<p style="color:red;">' . $_SESSION['error'] . '</p>';
     unset($_SESSION['error']); // clear it after displaying
@@ -239,6 +291,7 @@ if (isset($_SESSION['error'])) {
     }
   });
 </script>
+</div>
 
 </body>
 </html>
