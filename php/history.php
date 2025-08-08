@@ -149,6 +149,9 @@ $user_id = $_COOKIE['user_id'] ?? null;
 </nav>
 
     <div class="container">
+        <div class="cta">
+            <a href="upload.php">Back to Upload</a>
+        </div>
         <h2>Your Uploaded Images</h2>
         <p>Images uploaded from URL will not be saved in history</p>
         
@@ -189,9 +192,7 @@ $user_id = $_COOKIE['user_id'] ?? null;
         }
         ?>
 
-        <div class="cta">
-            <a href="upload.php">Back to Upload</a>
-        </div>
+
     </div>
 </body>
 </html>
