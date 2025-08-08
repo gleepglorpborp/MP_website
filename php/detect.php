@@ -161,13 +161,13 @@ $response = $_SESSION['detection_result'] ?? null;
         }
     ?>
     <div class="cta">
-        <a href="/mp_website/php/upload.php">Upload another image</a>
+        <a href="../php/upload.php">Upload another image</a>
     </div>
     <div class="cta">
-        <a href="/mp_website/php/history.php">View history</a>
+        <a href="../php/history.php">View history</a>
     </div>
     <div class="cta">
-        <a href="/mp_website/php/index.php">Home Page</a>
+        <a href="../php/index.php">Home Page</a>
     </div>
 </div>
 
