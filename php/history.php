@@ -28,6 +28,24 @@ $user_id = $_COOKIE['user_id'] ?? null;
             color: #f1f5f9;
         }
 
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            background-color: #1e293b;
+            padding: 1rem 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #0ea5e9;
+        }
+
         .container {
             max-width: 960px;
             margin: auto;
@@ -121,6 +139,15 @@ $user_id = $_COOKIE['user_id'] ?? null;
 
 </head>
 <body>
+    <nav>
+    <a href="index.php">Home</a>
+    <a href="guess.php">Play Game</a>
+    <a href="mission.php">Mission</a>
+    <a href="vision.php">Vision</a>
+    <a href="learnmore.php">Learn More</a>
+    <a href="contact.php">Contact Us</a>
+</nav>
+
     <div class="container">
         <h2>Your Uploaded Images</h2>
         <p>Images uploaded from URL will not be saved in history</p>
