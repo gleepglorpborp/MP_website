@@ -152,7 +152,7 @@ $_SESSION['answer'] = $selected_real;
     </form>
 
     <div class="done-button">
-        <a href="result.php">Done</a>
+        <a href="guess_result.php">Done</a>
     </div>
 </div>
 
