@@ -77,8 +77,8 @@
     <h1>Our Mission</h1>
 
     <p>
-        Our team developed a deepfake detection AI using the <strong>MesoNet framework</strong> — a lightweight neural network designed to analyze facial cues in images.
-        This project aims to help individuals and organizations verify whether a face image is authentic or AI-generated.
+        Our team developed a deepfake detection platform powered by the <strong>Sightengine API</strong> — a third-party AI service that analyzes images for signs of manipulation, including deepfakes. 
+        This API leverages machine learning models trained to detect digitally altered or AI-generated faces.
     </p>
 
     <p>
@@ -97,8 +97,10 @@
 </div>
 
 <footer>
-    &copy; <?php echo date("Y"); ?> Deepfake Detection AI. Built with MesoNet.
+    &copy; <?php echo date("Y"); ?> Deepfake Detection AI. All rights reserved.
 </footer>
 
 </body>
 </html>
+<h3>What are Deepfakes?</h3>
+

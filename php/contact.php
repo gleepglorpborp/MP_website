@@ -95,7 +95,7 @@
 </div>
 
 <footer>
-    &copy; <?php echo date("Y"); ?> Deepfake Detection AI. Built with MesoNet.
+    &copy; <?php echo date("Y"); ?> Deepfake Detection AI. All rights reserved.
 </footer>
 
 </body>

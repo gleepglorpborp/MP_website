@@ -108,12 +108,12 @@ $response = $_SESSION['detection_result'] ?? null;
 <body>
 
 <nav>
-    <a href="index.php">Home</a>
+    <a href="/mp_website/php/index.php">Home</a>
     <a href="guess.php">Play Game</a>
-    <a href="mission.php">Mission</a>
-    <a href="vision.php">Vision</a>
-    <a href="learnmore.php">Learn More</a>
-    <a href="contact.php">Contact Us</a>
+    <a href="/mp_website/php/mission.php">Mission</a>
+    <a href="/mp_website/php/vision.php">Vision</a>
+    <a href="/mp_website/php/learnmore.php">Learn More</a>
+    <a href="/mp_website/php/contact.php">Contact Us</a>
 </nav>
 
 <div class="container">
