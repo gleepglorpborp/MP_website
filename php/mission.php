@@ -102,5 +102,4 @@
 
 </body>
 </html>
-<h3>What are Deepfakes?</h3>
 
