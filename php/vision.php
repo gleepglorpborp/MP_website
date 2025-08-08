@@ -111,20 +111,6 @@
         We aim to empower users with knowledge and tools to detect and challenge manipulated content that can spread false information, cause reputational harm, or incite conflict.
     </p>
 
-    <h2>How to Spot a Deepfake</h2>
-    <p>
-        Detecting deepfakes is becoming increasingly difficult due to enhanced realism and the rapid evolution of generative AI tools. 
-        While deepfakes are improving, there are still telltale signs you can look out for:
-    </p>
-    <ul>
-        <li> Unnatural or robotic facial movements</li>
-        <li> Inconsistent skin tones or color mismatches</li>
-        <li> Lighting inconsistencies across the face and background</li>
-        <li> Poor lip-syncing </li>
-        <li> Blurry or distorted backgrounds and face edges</li>
-        <li> Suspicious distribution </li>
-    </ul>
-
     <h2>Why This Matters</h2>
     <p>
         As shown below. The target groups were as follows: politicians and the general public were each targeted 40% of the time, and celebrities were targeted 20% of the time.

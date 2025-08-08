@@ -109,7 +109,7 @@ $response = $_SESSION['detection_result'] ?? null;
 
 <nav>
     <a href="/mp_website/php/index.php">Home</a>
-    <a href="guess.php">Play Game</a>
+    <a href="/mp_website/php/guess.php">Play Game</a>
     <a href="/mp_website/php/mission.php">Mission</a>
     <a href="/mp_website/php/vision.php">Vision</a>
     <a href="/mp_website/php/learnmore.php">Learn More</a>
